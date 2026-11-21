@@ -19,7 +19,6 @@ export function carteTravail(t, { afficherChantier = true, kanban = false } = {}
   const meta = [
     zone && `<span>📍 ${esc(zone)}</span>`,
     chantier && `<span>🏗 ${esc(chantier)}${phase ? ` › ${esc(phase)}` : ''}</span>`,
-    !chantier && phase && `<span>${esc(phase)}</span>`,
     t.date_cible && `<span class="${enRetard(t) ? 'retard' : ''}">📅 ${formatDate(t.date_cible)}</span>`,
     t.assigne_a && `<span>👤 ${esc(t.assigne_a)}</span>`,
   ].filter(Boolean).join('');
