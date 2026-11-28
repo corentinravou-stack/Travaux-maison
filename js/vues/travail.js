@@ -179,14 +179,14 @@ actions['chercher-prerequis'] = (el) => {
     : '';
 };
 
-actions['ajouter-prerequis'] = async (el) => {
+actions['ajouter-prerequis'] = (el) => {
   const { travail, prerequis: pre } = el.dataset;
-  if (creeraitCycle(travail, pre)) return;
-  await ajouterPrerequis(travail, pre);
+  if (creeraitCycle(travail, pre) || prerequis(travail).some((p) => p.id === pre)) return;
+  ajouterPrerequis(travail, pre);
   actions['rendre']();
 };
 
-actions['retirer-prerequis'] = async (el) => {
-  await retirerPrerequis(el.dataset.travail, el.dataset.prerequis);
+actions['retirer-prerequis'] = (el) => {
+  retirerPrerequis(el.dataset.travail, el.dataset.prerequis);
   actions['rendre']();
 };

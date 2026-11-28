@@ -6,7 +6,7 @@ import { CONFIG } from '../config.js';
 import { etat, parId, zones, TABLES } from '../store.js';
 import { esc, actions, toast, aujourdhui } from '../ui.js';
 import {
-  modifier, inserer, supprimer, nouvelId, echangerOrdre, sortirDeLaCorbeille, moteur, recharger,
+  modifier, supprimer, creerZone, echangerOrdre, sortirDeLaCorbeille, moteur, recharger,
 } from '../donnees.js';
 
 export function vueReglages() {
@@ -78,8 +78,8 @@ actions['renommer-zone'] = (el) => {
   if (nom) modifier('zones', el.dataset.id, { nom });
 };
 
-actions['zone-ordre'] = async (el) => {
-  await echangerOrdre('zones', zones(), Number(el.dataset.index), Number(el.dataset.sens));
+actions['zone-ordre'] = (el) => {
+  echangerOrdre('zones', zones(), Number(el.dataset.index), Number(el.dataset.sens));
   actions['rendre']();
 };
 
@@ -90,10 +90,11 @@ actions['zone-supprimer'] = async (el) => {
   await supprimer('zones', { id: z.id });
 };
 
-actions['zone-ajouter'] = async (form) => {
+actions['zone-ajouter'] = (form) => {
   const nom = form.nom.value.trim();
   if (!nom) return;
-  await inserer('zones', { id: nouvelId(), bien_id: etat.bienId, nom, ordre: zones().length });
+  // Affichage immédiat : l'enregistrement en ligne se poursuit en arrière-plan.
+  creerZone(nom);
   actions['rendre']();
   document.querySelector('[data-submit="zone-ajouter"] input')?.focus();
 };
@@ -134,8 +135,8 @@ actions['importer'] = async (el) => {
 
 // --- Corbeille --------------------------------------------------------
 
-actions['restaurer'] = async (el) => {
-  await sortirDeLaCorbeille(el.dataset.table, el.dataset.id);
+actions['restaurer'] = (el) => {
+  sortirDeLaCorbeille(el.dataset.table, el.dataset.id);
   toast('Restauré');
   actions['rendre']();
 };

@@ -14,7 +14,7 @@
 import { creerBackend } from './db.js';
 import { etat, remplacerDonnees } from './store.js';
 import { esc, actions, toast, fermerFeuille } from './ui.js';
-import { brancher, preparer, recharger } from './donnees.js';
+import { brancher, preparer, recharger, ecrituresEnCours } from './donnees.js';
 import { vueListe, vueKanban } from './vues/travaux.js';
 import { vueChantiers, vueChantier, vueModifierChantier } from './vues/chantiers.js';
 import { vueTravail } from './vues/travail.js';
@@ -88,6 +88,9 @@ let minuteurRechargement;
 function surModificationDistante() {
   clearTimeout(minuteurRechargement);
   minuteurRechargement = setTimeout(async () => {
+    // Un de nos enregistrements est encore en route : recharger maintenant
+    // ferait disparaître un instant ce qui vient d'être saisi. On attend.
+    if (ecrituresEnCours()) return surModificationDistante();
     remplacerDonnees(await backend.toutCharger());
     // Ne pas effacer ce que l'utilisateur est en train de taper.
     if (saisieEnCours() || document.getElementById('feuille')) rendreEnAttente = true;

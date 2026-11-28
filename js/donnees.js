@@ -21,13 +21,20 @@ export const moteur = () => backend;
 export const nouvelId = () => crypto.randomUUID();
 const maintenant = () => new Date().toISOString();
 
+// Nombre d'enregistrements partis vers la base et pas encore confirmés.
+let ecritures = 0;
+export const ecrituresEnCours = () => ecritures > 0;
+
 async function enregistrer(operation) {
+  ecritures += 1;
   try {
     await operation;
   } catch (e) {
     console.error(e);
     toast(`Échec de l'enregistrement : ${e.message}`, true);
     await recharger();
+  } finally {
+    ecritures -= 1;
   }
 }
 

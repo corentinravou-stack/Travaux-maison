@@ -195,8 +195,8 @@ actions['renommer-phase'] = (el) => {
   if (nom) modifier('phases', el.dataset.id, { nom });
 };
 
-actions['phase-ordre'] = async (el) => {
-  await echangerOrdre('phases', phasesDe(el.dataset.chantier), Number(el.dataset.index), Number(el.dataset.sens));
+actions['phase-ordre'] = (el) => {
+  echangerOrdre('phases', phasesDe(el.dataset.chantier), Number(el.dataset.index), Number(el.dataset.sens));
   actions['rendre']();
 };
 
@@ -206,11 +206,11 @@ actions['phase-supprimer'] = async (el) => {
   await supprimer('phases', { id: p.id });
 };
 
-actions['phase-ajouter'] = async (form) => {
+actions['phase-ajouter'] = (form) => {
   const nom = form.nom.value.trim();
   if (!nom) return;
   const phases = phasesDe(form.dataset.chantier);
-  await inserer('phases', { id: nouvelId(), chantier_id: form.dataset.chantier, nom, ordre: phases.length });
+  inserer('phases', { id: nouvelId(), chantier_id: form.dataset.chantier, nom, ordre: phases.length });
   actions['rendre']();
   document.querySelector('[data-submit="phase-ajouter"] input')?.focus();
 };
