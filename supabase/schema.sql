@@ -125,7 +125,9 @@ create trigger noter_modification before update on public.travaux
 -- 4. Sécurité : accès réservé aux personnes autorisées
 --    + diffusion des modifications en temps réel
 -- ---------------------------------------------------------------------
+grant usage on schema public to authenticated;
 alter table public.utilisateurs_autorises enable row level security;  -- aucune règle = illisible depuis l'appli
+revoke all on public.utilisateurs_autorises from anon, authenticated;
 
 do $$
 declare t text;
@@ -136,6 +138,10 @@ begin
       'create policy acces_foyer on public.%I for all to authenticated
          using (public.est_autorise()) with check (public.est_autorise())', t);
     execute format('alter publication supabase_realtime add table public.%I', t);
+    -- Droits explicites pour les personnes connectées (rien pour les visiteurs anonymes),
+    -- au cas où l'accès automatique aux nouvelles tables serait désactivé dans Supabase.
+    execute format('revoke all on public.%I from anon', t);
+    execute format('grant select, insert, update, delete on public.%I to authenticated', t);
   end loop;
 end $$;
 
