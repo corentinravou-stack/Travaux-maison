@@ -6,6 +6,7 @@ import { parId, zones, phasesDe, tachesDe, chantiersActifs, bloquants, priorite,
 import { esc, actions, ouvrirFeuille, fermerFeuille, puces, formatDate, toast } from '../ui.js';
 import { creerChantier, modifier, inserer, supprimer, nouvelId, mettreALaCorbeille, echangerOrdre } from '../donnees.js';
 import { carteTravail, colonnesKanban, vide } from './composants.js';
+import { boutonNouvellePiece, optionNouvellePiece } from './pieces.js';
 
 // --- Liste des chantiers ---------------------------------------------
 
@@ -58,7 +59,7 @@ actions['nouveau-chantier'] = () => {
       </div>
       <input name="intitule" class="champ-principal" placeholder="Ex. Rénovation salle de bain" required autocomplete="off" autofocus>
       <p class="etiquette">Pièce</p>
-      ${puces('zone', [{ id: '', label: 'Aucune' }, ...zones().map((z) => ({ id: z.id, label: z.nom }))], '')}
+      ${puces('zone', [{ id: '', label: 'Aucune' }, ...zones().map((z) => ({ id: z.id, label: z.nom }))], '', boutonNouvellePiece)}
       <p class="etiquette">Priorité</p>
       ${puces('priorite', PRIORITES.map((p) => ({ id: p.id, label: p.label })), 'normale')}
       <label class="etiquette" for="phases-nouveau">Phases (facultatif, une par ligne)</label>
@@ -156,9 +157,10 @@ export function vueModifierChantier(id) {
         </div>
 
         <label class="etiquette" for="c-zone">Pièce</label>
-        <select id="c-zone" data-change="champ" data-champ="zone_id">
+        <select id="c-zone" data-change="choisir-zone">
           <option value="">Aucune</option>
           ${zones().map((z) => `<option value="${z.id}" ${z.id === c.zone_id ? 'selected' : ''}>${esc(z.nom)}</option>`).join('')}
+          ${optionNouvellePiece}
         </select>
 
         <label class="etiquette" for="c-date">Date cible</label>

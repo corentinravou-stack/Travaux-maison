@@ -12,6 +12,7 @@ import {
 import { esc, actions, toast } from '../ui.js';
 import { modifier, ajouterPrerequis, retirerPrerequis, mettreALaCorbeille } from '../donnees.js';
 import { introuvable } from './chantiers.js';
+import { optionNouvellePiece } from './pieces.js';
 
 export function vueTravail(id) {
   const t = parId('travaux', id);
@@ -51,9 +52,10 @@ export function vueTravail(id) {
         <div class="deux-colonnes">
           <div>
             <label class="etiquette" for="t-zone">Pièce</label>
-            <select id="t-zone" data-change="champ" data-champ="zone_id">
+            <select id="t-zone" data-change="choisir-zone">
               <option value="">Aucune</option>
               ${zones().map((z) => `<option value="${z.id}" ${z.id === t.zone_id ? 'selected' : ''}>${esc(z.nom)}</option>`).join('')}
+              ${optionNouvellePiece}
             </select>
           </div>
           <div>

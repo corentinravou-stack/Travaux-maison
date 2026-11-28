@@ -5,6 +5,7 @@
 import { parId, zones, phasesDe, travauxActifs, PRIORITES } from '../store.js';
 import { esc, actions, ouvrirFeuille, fermerFeuille, puces, toast } from '../ui.js';
 import { creerTravail } from '../donnees.js';
+import { boutonNouvellePiece } from './pieces.js';
 import { barreFiltres, lireFiltres, filtrer, trier, carteTravail, colonnesKanban, vide } from './composants.js';
 
 export function vueListe() {
@@ -53,7 +54,7 @@ actions['ajout-rapide'] = (el) => {
       <input name="intitule" class="champ-principal" placeholder="Ex. Reboucher la fissure du couloir" required autocomplete="off" enterkeyhint="done" autofocus>
       ${phases.length ? `<p class="etiquette">Phase</p>${puces('phase', [{ id: '', label: 'Aucune' }, ...phases.map((p) => ({ id: p.id, label: p.nom }))], el.dataset.phase || '')}` : ''}
       <p class="etiquette">Pièce</p>
-      ${puces('zone', [{ id: '', label: 'Aucune' }, ...zones().map((z) => ({ id: z.id, label: z.nom }))], zoneDefaut)}
+      ${puces('zone', [{ id: '', label: 'Aucune' }, ...zones().map((z) => ({ id: z.id, label: z.nom }))], zoneDefaut, boutonNouvellePiece)}
       <p class="etiquette">Priorité</p>
       ${puces('priorite', PRIORITES.map((p) => ({ id: p.id, label: p.label })), 'normale')}
       <div class="feuille-actions">

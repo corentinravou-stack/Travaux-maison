@@ -553,6 +553,15 @@ textarea { resize: vertical; }
   cursor: pointer;
 }
 .puce input:checked + span { background: var(--accent); border-color: var(--accent); color: var(--accent-texte); font-weight: 600; }
+.puce-ajout {
+  padding: 7px 12px;
+  border: 1px dashed var(--accent);
+  border-radius: 18px;
+  background: none;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
 .puce input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* --- Connexion ------------------------------------------------------ */

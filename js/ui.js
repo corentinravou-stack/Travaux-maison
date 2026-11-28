@@ -61,8 +61,11 @@ export function fermerFeuille() {
 actions['fermer-feuille'] = fermerFeuille;
 
 /** Pastilles « radio » horizontales (zones, priorités, phases…). */
-export function puces(nom, options, valeur) {
-  return `<div class="puces">${options.map((o) => `
-    <label class="puce"><input type="radio" name="${nom}" value="${esc(o.id)}" ${o.id === valeur ? 'checked' : ''}><span>${esc(o.label)}</span></label>`).join('')}
-  </div>`;
+export function puce(nom, option, coche) {
+  return `<label class="puce"><input type="radio" name="${nom}" value="${esc(option.id)}" ${coche ? 'checked' : ''}><span>${esc(option.label)}</span></label>`;
+}
+
+/** `suite` : HTML ajouté en fin de rangée (ex. bouton « + Nouvelle pièce »). */
+export function puces(nom, options, valeur, suite = '') {
+  return `<div class="puces">${options.map((o) => puce(nom, o, o.id === valeur)).join('')}${suite}</div>`;
 }

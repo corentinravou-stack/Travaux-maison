@@ -108,6 +108,17 @@ export function creerChantier(champs, nomsPhases = []) {
   return chantier;
 }
 
+/** Crée une pièce (ou renvoie celle qui porte déjà ce nom). */
+export function creerZone(nom) {
+  const existante = etat.donnees.zones.find(
+    (z) => z.bien_id === etat.bienId && z.nom.toLowerCase() === nom.toLowerCase());
+  if (existante) return existante;
+  const ordre = etat.donnees.zones.filter((z) => z.bien_id === etat.bienId).length;
+  const zone = { id: nouvelId(), bien_id: etat.bienId, nom, ordre };
+  inserer('zones', zone);
+  return zone;
+}
+
 export const mettreALaCorbeille = (table, id) => modifier(table, id, { supprime_le: maintenant() });
 export const sortirDeLaCorbeille = (table, id) => modifier(table, id, { supprime_le: null });
 
