@@ -39,6 +39,7 @@ Téléphone / ordinateur ──► Page web (GitHub Pages, gratuit)
 | `js/donnees.js` | Création / modification / suppression des données |
 | `js/db.js` | Dialogue avec Supabase, ou stockage local en mode démo |
 | `js/vues/` | Un fichier par groupe d'écrans |
+| `js/lib/` | Bibliothèque officielle Supabase (copie de la version 2.118.0) |
 | `supabase/schema.sql` | Création des tables et règles de sécurité |
 | `sauvegarde/` | Fichiers du dépôt privé de sauvegarde quotidienne |
 

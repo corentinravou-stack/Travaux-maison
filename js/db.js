@@ -8,7 +8,19 @@
 import { CONFIG } from './config.js';
 import { TABLES } from './store.js';
 
-const SUPABASE_JS = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/+esm';
+// Bibliothèque officielle Supabase, copiée dans le projet (js/lib/) pour ne
+// dépendre d'aucun site externe en plus de Supabase lui-même.
+const SUPABASE_JS = 'js/lib/supabase-2.118.0.js';
+
+function chargerScript(src) {
+  return new Promise((resoudre, rejeter) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = resoudre;
+    script.onerror = () => rejeter(new Error('Chargement de la bibliothèque Supabase impossible.'));
+    document.head.append(script);
+  });
+}
 
 export function creerBackend() {
   return CONFIG.SUPABASE_URL ? creerSupabase() : creerDemo();
@@ -18,7 +30,8 @@ export function creerBackend() {
 // Moteur Supabase
 // --------------------------------------------------------------------
 async function creerSupabase() {
-  const { createClient } = await import(SUPABASE_JS);
+  await chargerScript(SUPABASE_JS);
+  const { createClient } = window.supabase;
   const client = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
 
   const verifier = ({ data, error }) => {
@@ -37,9 +50,9 @@ async function creerSupabase() {
     async connexion(email, motDePasse) {
       const { data, error } = await client.auth.signInWithPassword({ email, password: motDePasse });
       if (error) {
-        throw new Error(/invalid/i.test(error.message)
-          ? 'E-mail ou mot de passe incorrect.'
-          : error.message);
+        if (/invalid/i.test(error.message)) throw new Error('E-mail ou mot de passe incorrect.');
+        if (/fetch|network/i.test(error.message)) throw new Error('Serveur injoignable : vérifiez votre connexion internet.');
+        throw new Error(error.message);
       }
       return data.user;
     },

@@ -11,8 +11,8 @@
 // voir supabase/schema.sql).
 
 export const CONFIG = {
-  SUPABASE_URL: '',        // ex. 'https://abcdefgh.supabase.co'
-  SUPABASE_ANON_KEY: '',   // ex. 'sb_publishable_...' ou 'eyJhbGciOi...'
+  SUPABASE_URL: 'https://tcjdhjpcaizmcmwtpdkq.supabase.co',
+  SUPABASE_ANON_KEY: 'sb_publishable_Yu39-XZMfPGuTEukZcq-Lg_eJAOUqwh',
 
   // Personnes à qui l'on peut assigner un travail.
   PERSONNES: ['Corentin', 'Cécile'],
