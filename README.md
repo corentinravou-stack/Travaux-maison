@@ -41,6 +41,7 @@ Téléphone / ordinateur ──► Page web (GitHub Pages, gratuit)
 | `js/vues/` | Un fichier par groupe d'écrans |
 | `js/lib/` | Bibliothèque officielle Supabase (copie de la version 2.118.0) |
 | `supabase/schema.sql` | Création des tables et règles de sécurité |
+| `EVOLUTIONS.md` | Liste des évolutions demandées |
 | `sauvegarde/` | Fichiers du dépôt privé de sauvegarde quotidienne |
 
 Pas d'outil de compilation : les fichiers sont servis tels quels.
