@@ -9,6 +9,9 @@ traitées ensemble, après 2 à 3 semaines d'utilisation.
   aujourd'hui chaque champ s'enregistre seul et on sort avec « ‹ Retour », ce
   qui n'est pas naturel. Ajouter une coche de validation qui enregistre et
   ramène à l'écran précédent.
+- **Ouvrir directement la fiche complète à la création d'un travail**, au lieu
+  de la feuille d'ajout rapide (intitulé, pièce, priorité) suivie de « Plus de
+  détails ». À combiner avec le bouton « ✓ Valider » ci-dessus.
 - *Proposé, à confirmer* : bouton « Changer mon mot de passe » dans Réglages.
 
 ## Déjà corrigé
