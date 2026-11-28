@@ -37,18 +37,22 @@ Ce qui est **public** et ce qui est **privé** :
      normalement jamais) ;
    - Region : **West EU (Paris)** ;
    - Plan : **Free** › **Create new project**. Attendez 1 à 2 minutes.
-3. Menu de gauche › **SQL Editor** › **New query**. Collez le contenu du
-   fichier `supabase/schema.sql` (je vous le fournirai déjà rempli avec vos
-   deux adresses), puis cliquez **Run**. Le message attendu est « Success ».
-4. Menu de gauche › **Authentication** › **Sign In / Providers** (ou *Settings*) :
+3. Menu de gauche › **SQL Editor** › **New query**. Collez tout le contenu du
+   fichier `supabase/schema.sql`, puis cliquez **Run**. Le message attendu
+   est « Success ».
+4. Nouvelle requête (**+**), pour autoriser une adresse e-mail :
+   `insert into public.utilisateurs_autorises (email) values ('votre@adresse.fr');`
+   puis **Run**. À refaire pour chaque personne (par exemple plus tard pour
+   votre conjointe). Les adresses ne sont jamais écrites dans le code public.
+5. Menu de gauche › **Authentication** › **Sign In / Providers** (ou *Settings*) :
    **désactivez** « Allow new users to sign up », puis **Save**.
    Ainsi personne d'autre ne peut créer de compte.
-5. **Authentication** › **Users** › **Add user** › **Create new user** :
+6. **Authentication** › **Users** › **Add user** › **Create new user** :
    - votre e-mail et un mot de passe de votre choix ;
    - cochez **Auto Confirm User** › **Create user**.
 
    Recommencez pour votre conjointe.
-6. Menu de gauche › **Project Settings** (roue dentée) › **API Keys**
+7. Menu de gauche › **Project Settings** (roue dentée) › **API Keys**
    (ou **Data API**) :
    - copiez la **Project URL** (`https://xxxx.supabase.co`) ;
    - copiez la clé **publishable** (ou **anon public**).

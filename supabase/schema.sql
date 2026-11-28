@@ -1,7 +1,7 @@
 -- =====================================================================
 -- Base de données « Travaux maison »
 -- À exécuter UNE fois dans Supabase : menu « SQL Editor » > « New query »,
--- coller tout ce fichier, remplacer les deux e-mails ci-dessous, « Run ».
+-- coller tout ce fichier, « Run ». Puis autoriser chaque adresse (voir §1).
 -- =====================================================================
 
 -- ---------------------------------------------------------------------
@@ -11,9 +11,9 @@ create table public.utilisateurs_autorises (
   email text primary key
 );
 
-insert into public.utilisateurs_autorises (email) values
-  ('premiere.adresse@exemple.fr'),   -- ← à remplacer
-  ('seconde.adresse@exemple.fr');    -- ← à remplacer
+-- Les adresses ne sont PAS écrites ici (ce fichier est public).
+-- Pour autoriser une personne, exécuter dans le SQL Editor :
+--   insert into public.utilisateurs_autorises (email) values ('adresse@exemple.fr');
 
 -- Vrai si la personne connectée fait partie de la liste ci-dessus.
 create or replace function public.est_autorise()
